@@ -1,0 +1,9 @@
+{
+  "name": "wordle",
+  "version": "0.0.0",
+  "description": "Wordle",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  }
+}

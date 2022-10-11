@@ -33,8 +33,14 @@ const keys = [
     '<<',
 ]
 
+const handleClick = () => {
+    console.log('clicked')
+}
+
 keys.forEach(key => {
     const buttonElement = document.createElement('button')
     buttonElement.textContent = key
+    buttonElement.setAttribute('id', key)
+    buttonElement.addEventListener('click', handleClick)
     keyboard.append(buttonElement)
 })

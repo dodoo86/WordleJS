@@ -1,7 +1,8 @@
 const tileDisplay = document.querySelector('.tile-container')
 const keyboard = document.querySelector('.key-container')
+const messageDisplay = document.querySelector('.message-container')
 
-const worldle = 'DAVID'
+const wordle = 'DAVID'
 
 const keys = [
     'Q',
@@ -96,5 +97,22 @@ const deleteLetter = () => {
         guessRows[currentRow][currentTile] = ''
         tile.setAttribute('data', '')
     }  
+}
+
+const checkRow = () => {
+    const guess = guessRows[currentRow].join('')
+
+    if (currentTile === 5) {
+        console.log('guess is ' + guess, 'wordle is ' + wordle)
+        if (wordle == guess) {
+            showMessage('Excellent!!!')
+        }
+    }
+}
+
+const showMessage = (message) => {
+    const messageElement = document.createElement('p')
+    messageElement.textContent = message
+    messageDisplay.append(messageElement)
 }
 

@@ -51,6 +51,12 @@ const guessRows = [
     ['', '', '', '', ''],
     ['', '', '', '', ''],
     ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
     ['', '', '', '', '']
 ]
 let currentRow = 0
@@ -78,6 +84,7 @@ keys.forEach(key => {
 })
 
 const handleClick = (letter) => {
+    if (!isGameOver) {
         if (letter === '<<') {
             deleteLetter()
             return
@@ -87,10 +94,11 @@ const handleClick = (letter) => {
             return
         }
         addLetter(letter)
+    }
 }
 
 const addLetter = (letter) => {
-    if (currentTile < 5 && currentRow < 6) {
+    if (currentTile < 5 && currentRow < 12) {
         const tile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile)
         tile.textContent = letter
         guessRows[currentRow][currentTile] = letter
@@ -118,25 +126,29 @@ const checkRow = () => {
             .then(response => response.json())
             .then(json => {
                 console.log(json)
-            })
-
-        console.log('guess is ' + guess, 'wordle is ' + wordle)
-        flipTile()
-        if (wordle == guess) {
-            showMessage('Excellent!!!')
-            isGameOver = true
-            return
-        } else {
-            if (currentRow >= 5) {
-                isGameOver = true
-                showMessage('GAME OVER')
-                return
-            }
-            if (currentRow < 5) {
-                currentRow++
-                currentTile = 0
-            }
-        }
+                if (json == 'Entry word not found') {
+                    showMessage('Invalid Word !')
+                    return
+                } else {
+                    console.log('guess is ' + guess, 'wordle is ' + wordle)
+                    flipTile()
+                    if (wordle == guess) {
+                        showMessage('Excellent!!!')
+                        isGameOver = true
+                        return
+                    } else {
+                        if (currentRow >= 11) {
+                            isGameOver = true
+                            showMessage('GAME OVER')
+                            return
+                        }
+                        if (currentRow < 11) {
+                            currentRow++
+                            currentTile = 0
+                        }
+                    }
+                }
+            }).catch(err => console.log(err))
     }
 }
 

@@ -27,7 +27,7 @@ app.get('/word', (req, res) => {
 })
 
 app.get('/check', (req, res) => {
-    //console.log(req)
+
     const word = req.query.word
 
     const options = {
@@ -42,6 +42,7 @@ app.get('/check', (req, res) => {
 
     axios.request(options).then((response) => {
         console.log(response.data)
+        res.json(response.data.result_msg)
     }).catch((error) => {
         console.error(error)
     })

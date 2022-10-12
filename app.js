@@ -60,7 +60,7 @@ let isGameOver = false
 guessRows.forEach((guessRow,guessRowIndex) => {
     const rowElement = document.createElement('div')
     rowElement.setAttribute('id', 'guessRow-' + guessRowIndex)
-    guessRow.forEach((guess, guessIndex) => {
+    guessRow.forEach((_guess, guessIndex) => {
         const tileElement = document.createElement('div')
         tileElement.setAttribute('id', 'guessRow-' + guessRowIndex + '-tile-' + guessIndex)
         tileElement.classList.add('tile')
@@ -114,6 +114,12 @@ const checkRow = () => {
     const guess = guessRows[currentRow].join('')
 
     if (currentTile > 4) {
+        fetch(`http://localhost:8000/check/?word=${guess}`)
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+            })
+
         console.log('guess is ' + guess, 'wordle is ' + wordle)
         flipTile()
         if (wordle == guess) {

@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/dodoo86/WordleJS/issues"
   },
-  "homepage": "https://github.com/dodoo86/WordleJS#readme",
+  "homepage": "https://github.com/dodoo86/WordleJS",
   "dependencies": {
     "axios": "^0.25.0",
     "cors": "^2.8.5",

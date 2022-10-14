@@ -1,7 +1,6 @@
 ﻿* {
     color: #ffffff;
-    font-family: 'Trebuchet MS','Lucida Sans Unicode', 'Lucida Grande', 
-         'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS','Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 body {
@@ -23,24 +22,25 @@ body {
 }
 
 .tile-container {
-    width: 330px;
+    width: 465px;
     margin-bottom: 30px;
 }
 
 .key-container {
-    width: 510px;
+    width: 580px;
     display: flex;
     flex-wrap: wrap;
 }
 
-.key-container button {
-    width: 43px;
-    height: 58px;
-    border-radius: 4px;
-    border: none;
-    background-color: #818384;
-    margin: 4px;
-}
+    .key-container button {
+        width: 50px;
+        height: 65px;
+        border-radius: 4px;
+        border: none;
+        background-color: #818384;
+        margin: 4px;
+        font-size: 21px;
+    }
 
     .key-container button:nth-child(11) {
         margin-left: 30px;
@@ -48,34 +48,38 @@ body {
 
     .key-container button:nth-child(20),
     .key-container button:nth-child(28) {
-        width: 68px;
+        width: 75px;
     }
 
     .tile-container div {
         display:flex;
     }
 
-    .tile-container .tile {
-        width: 62px;
-        height: 62px;
-        border: 2px solid#3a3a3c;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 2px;
-    }
+.tile-container .tile {
+    width: 90px;
+    height: 100px;
+    border: 2px solid#3a3a3c;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    font-size: 60px;
+    font-family: 'Lucida Sans';
+}
 
     .message-container {
         height: 30px;
     }
 
-    .message-container p {
-    background-color: #818384;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 0;
-    }
+        .message-container p {
+            background-color: #818384;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 0;
+            position: relative;
+            z-index: 1000;
+        }
 
     .tile.flip {
         animation: 0.5s linear flipping;

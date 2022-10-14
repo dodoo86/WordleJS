@@ -136,6 +136,7 @@ const checkRow = () => {
                         if (currentRow >= 7) {
                             isGameOver = true
                             showMessage('GAME OVER')
+                            showMessage('Correst word was ' + wordle)
                             return
                         }
                         if (currentRow < 7) {

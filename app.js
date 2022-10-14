@@ -10,6 +10,7 @@ const getWordle = () => {
         .then(response => response.json())
         .then(json => {
             wordle = json.toUpperCase()
+            showMessage('Correst word was ' + wordle)
         })
         .catch(err => console.log(err))
 }

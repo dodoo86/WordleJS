@@ -6,7 +6,7 @@ const messageDisplay = document.querySelector('.message-container')
 let wordle
 
 const getWordle = () => {
-    fetch('http://localhost:8000/word')
+    fetch('https://squirreldle.onrender.com/word')
         .then(response => response.json())
         .then(json => {
             wordle = json.toUpperCase()
@@ -122,7 +122,7 @@ const checkRow = () => {
     const guess = guessRows[currentRow].join('')
 
     if (currentTile > 4) {
-        fetch(`http://localhost:8000/check/?word=${guess}`)
+        fetch(`https://squirreldle.onrender.com/check/?word=${guess}`)
             .then(response => response.json())
             .then(json => {
                 console.log(json)

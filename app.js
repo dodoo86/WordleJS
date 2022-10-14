@@ -98,7 +98,7 @@ const handleClick = (letter) => {
 }
 
 const addLetter = (letter) => {
-    if (currentTile < 5 && currentRow < 12) {
+    if (currentTile < 5 && currentRow < 8) {
         const tile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile)
         tile.textContent = letter
         guessRows[currentRow][currentTile] = letter
@@ -137,12 +137,12 @@ const checkRow = () => {
                         isGameOver = true
                         return
                     } else {
-                        if (currentRow >= 11) {
+                        if (currentRow >= 7) {
                             isGameOver = true
                             showMessage('GAME OVER')
                             return
                         }
-                        if (currentRow < 11) {
+                        if (currentRow < 7) {
                             currentRow++
                             currentTile = 0
                         }

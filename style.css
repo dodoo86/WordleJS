@@ -13,23 +13,27 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    max-zoom: 0;
 }
 
 .title-container {
     text-align: center;
     width: 510px;
     border-bottom: solid 1px #3a3a3c;
+    touch-action: manipulation;
 }
 
 .tile-container {
     width: 465px;
     margin-bottom: 30px;
+    touch-action: manipulation;
 }
 
 .key-container {
     width: 985px; /*580*/
     display: flex;
     flex-wrap: wrap;
+    touch-action: manipulation;
 }
 
     .key-container button {
@@ -40,20 +44,24 @@ body {
         background-color: #818384;
         margin: 4px;
         font-size: 21px;
+        touch-action: manipulation;
     }
 
-    .key-container button:nth-child(11) {
-        margin-left: 55px; /*30*/
-    }
+        .key-container button:nth-child(11) {
+            margin-left: 55px; /*30*/
+            touch-action: manipulation;
+        }
 
-    .key-container button:nth-child(20),
-    .key-container button:nth-child(28) {
-        width: 140px; /*75*/
-    }
+        .key-container button:nth-child(20),
+        .key-container button:nth-child(28) {
+            width: 140px; /*75*/
+            touch-action: manipulation;
+        }
 
-    .tile-container div {
-        display:flex;
-    }
+.tile-container div {
+    display: flex;
+    touch-action: manipulation;
+}
 
 .tile-container .tile {
     width: 90px;
@@ -66,20 +74,23 @@ body {
     margin: 2px;
     font-size: 60px;
     font-family: 'Lucida Sans';
+    touch-action: manipulation;
 }
 
-    .message-container {
-        height: 30px;
-    }
+.message-container {
+    height: 30px;
+    touch-action: manipulation;
+}
 
-        .message-container p {
-            background-color: #818384;
-            border-radius: 25px;
-            padding: 30px;
-            margin: 0;
-            position: relative;
-            z-index: 1000;
-        }
+    .message-container p {
+        background-color: #818384;
+        border-radius: 25px;
+        padding: 30px;
+        margin: 0;
+        position: relative;
+        z-index: 1000;
+        touch-action: manipulation;
+    }
 
     .tile.flip {
         animation: 0.5s linear flipping;
@@ -111,3 +122,7 @@ body {
         background-color: #538d4e !important;
         border: none !important;
     }
+
+* {
+    touch-action: manipulation;
+}

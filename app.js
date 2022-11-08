@@ -115,7 +115,6 @@ const deleteLetter = () => {
     }  
 }
 
-//Update
 
 const checkRow = () => {
     const guess = guessRows[currentRow].join('')

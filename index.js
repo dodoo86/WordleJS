@@ -15,16 +15,15 @@ app.get('/word', (req, res) => {
         params: { count: '1', wordLength: '5' },
         headers: {
             'X-RapidAPI-Host': 'random-words5.p.rapidapi.com',
-            'X-RapidAPI-Key': '99f96ab0cfmsh1dea2f53f05230ep161d3bjsn4ac7a2c22dbc'
+            'X-RapidAPI-Key': process.env.RAPID_API_KEY
         }
-    }
+    };
 
-    axios.request(options).then((response) => {
-        console.log(response.data)
-        res.json(response.data[0])
-    }).catch((error) => {
-        console.error(error)
-    })
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });
 })
 
 app.get('/check', (req, res) => {

@@ -4,6 +4,7 @@ const messageDisplay = document.querySelector('.message-container')
 
 
 let wordle
+let x = 0;
 
 const getWordle = () => {
     fetch('https://squirreldle.onrender.com/word')
@@ -127,7 +128,8 @@ const checkRow = () => {
                 if (json == 'Entry word not found') {
                     showMessage('Invalid Word !')
                     return
-                } else {
+                } else if (x == 0) {
+                    x = 1
                     console.log('guess is ' + guess, 'wordle is ' + wordle)
                     flipTile()
                     if (wordle == guess) {
@@ -144,10 +146,12 @@ const checkRow = () => {
                         if (currentRow < 7) {
                             currentRow++
                             currentTile = 0
+                           
                         }
                     }
                 }
             }).catch(err => console.log(err))
+        x=0
     }
 }
 
@@ -164,9 +168,10 @@ const addColorToKey = (keyLetter, color) => {
 }
 
 const flipTile = () => {
-    const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes
-    let checkWordle = wordle
-    const guess = []
+        const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes
+        let checkWordle = wordle
+        const guess = []
+    
 
     rowTiles.forEach(tile => {
         guess.push({ letter: tile.getAttribute('data'), color: 'grey-overlay' })

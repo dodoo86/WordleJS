@@ -14,15 +14,16 @@ app.get('/word', (req, res) => {
         url: 'https://random-words5.p.rapidapi.com/getMultipleRandom',
         params: { count: '1', wordLength: '5' },
         headers: {
-            'X-RapidAPI-Key': 'a0b9e1ec18msha606dee485c4c20p1d1b6ejsn1f4a18c9ddda',
-            'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
+            'X-RapidAPI-Host': 'random-words5.p.rapidapi.com',
+            'X-RapidAPI-Key': '99f96ab0cfmsh1dea2f53f05230ep161d3bjsn4ac7a2c22dbc'
         }
     }
 
     axios.request(options).then((response) => {
-        console.log(response.data);
+        console.log(response.data)
+        res.json(response.data[0])
     }).catch((error) => {
-        console.error(error);
+        console.error(error)
     })
 })
 

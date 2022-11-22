@@ -17,13 +17,13 @@ app.get('/word', (req, res) => {
             'X-RapidAPI-Host': 'random-words5.p.rapidapi.com',
             'X-RapidAPI-Key': process.env.RAPID_API_KEY
         }
-    };
+    }
 
-    axios.request(options).then(function (response) {
+    axios.request(options).then((response) => {
         console.log(response.data);
-    }).catch(function (error) {
+    }).catch((error) => {
         console.error(error);
-    });
+    })
 })
 
 app.get('/check', (req, res) => {

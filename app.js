@@ -17,6 +17,9 @@ const getWordle = () => {
 }
 getWordle()
 
+if (wordle === undefined)
+    wordle = "SORRY"
+
 const keys = [
     'Q',
     'W',

@@ -93,7 +93,7 @@ body {
     }
 
     .tile.flip {
-        animation: 0.5s linear flipping;
+        animation: 0.3s linear flipping;
     }
 
     @keyframes flipping {

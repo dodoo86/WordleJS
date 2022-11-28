@@ -4,21 +4,56 @@ const messageDisplay = document.querySelector('.message-container')
 
 
 let wordle
+let wor
+let dayWord
 let x = 0;
+
 
 const getWordle = () => {
     fetch('https://squirreldle.onrender.com/word')
         .then(response => response.json())
         .then(json => {
-            wordle = json.toUpperCase()
-            //showMessage('Correst word was ' + wordle)
+            dayWord = json.toUpperCase()
+            showMessage('Correst word was ' + dayWord)
+            localStorage.setItem("wor", dayWord)
+            showMessage('Correst word was ' + localStorage.getItem("wor"))
+            wordle = localStorage.getItem("wor")
         })
+    
         .catch(err => console.log(err))
 }
-getWordle()
+//localStorage.clear();
 
-if (wordle === undefined)
-    wordle = "SORRY"
+
+// checks if one day has passed. 
+function hasOneDayPassed() {
+    // get today's date. eg: "7/37/2007"
+    var date = new Date().toLocaleDateString();
+    //alert(date);
+    // if there's a date in localstorage and it's equal to the above: 
+    // inferring a day has yet to pass since both dates are equal.
+    if (localStorage.yourapp_date == date)
+        return false;
+
+// this portion of logic occurs when a day has passed
+localStorage.yourapp_date = date;
+return true;
+}
+
+
+// some function which should run once a day
+function runOncePerDay() {
+    if (!hasOneDayPassed()) return false;
+
+    // your code below
+    getWordle()
+    alert('Good morning!');
+
+}
+
+runOncePerDay(); // run the code
+
+wordle = localStorage.getItem("wor")
 
 const keys = [
     'Q',
@@ -172,7 +207,7 @@ const addColorToKey = (keyLetter, color) => {
 
 const flipTile = () => {
         const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes
-        let checkWordle = wordle
+    let checkWordle = wordle
         const guess = []
     
 

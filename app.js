@@ -1,3 +1,4 @@
+
 const tileDisplay = document.querySelector('.tile-container')
 const keyboard = document.querySelector('.key-container')
 const messageDisplay = document.querySelector('.message-container')
@@ -7,23 +8,102 @@ let wordle
 let wor
 let dayWord
 let x = 0;
+let streak = 0;
+let streakOut;
+let firstRunofTheDay = true;
 
+wordle = localStorage.getItem("wor")
+function streakCounter() {
+    if (localStorage.streakcount) {
+        
+    } else {
+        localStorage.streakcount = 1;
+    }
+    
+}
+streakCounter()
+document.getElementById("streak").innerHTML = "Your daily streak is : " + localStorage.streakcount;
+//document.getElementById("correctAnswer").innerHTML = "Correct answer was : " + wordle;
+
+const guessRowsEasy = [
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', '']
+]
+
+const guessRowsHard = [
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', '']
+]
+
+let guessRows = guessRowsEasy;
+
+
+function setEasy() {
+
+    guessRows = guessRowsEasy;
+    rowNum = 8;
+    closeNav();
+
+};
+
+function setHard() {
+
+    guessRows = guessRowsHard;
+    rowNum = 5;
+    closeNav();
+
+};
+
+setEasy
+
+
+function openNav() {
+    if (localStorage.getItem("Won") == "false") {
+        document.getElementById("OpenScreen").style.width = "100%";
+    }
+    if (localStorage.getItem("Won") == "true") {
+        document.getElementById("CloseScreen").style.width = "100%";
+    }
+    
+}
+
+function closeNav() {
+    document.getElementById("OpenScreen").style.width = "0%";
+}
+
+function inicializeMenu() {
+
+    if (firstRunofTheDay == true) {
+        closeNav();
+        openNav();
+    } else {
+        //closeNav();
+        openNav();
+    }
+
+}
+openNav()
 
 const getWordle = () => {
     fetch('https://squirreldle.onrender.com/word')
         .then(response => response.json())
         .then(json => {
             dayWord = json.toUpperCase()
-            showMessage('Correst word was ' + dayWord)
             localStorage.setItem("wor", dayWord)
-            showMessage('Correst word was ' + localStorage.getItem("wor"))
-            wordle = localStorage.getItem("wor")
+            
         })
-    
+
         .catch(err => console.log(err))
 }
-//localStorage.clear();
-
 
 // checks if one day has passed. 
 function hasOneDayPassed() {
@@ -35,9 +115,9 @@ function hasOneDayPassed() {
     if (localStorage.yourapp_date == date)
         return false;
 
-// this portion of logic occurs when a day has passed
-localStorage.yourapp_date = date;
-return true;
+    // this portion of logic occurs when a day has passed
+    localStorage.yourapp_date = date;
+    return true;
 }
 
 
@@ -46,16 +126,36 @@ function runOncePerDay() {
     if (!hasOneDayPassed()) return false;
 
     // your code below
+    //inicialize();
+    //closeNav();
+    //localStorage.removeItem("wor");
     getWordle()
+    localStorage.setItem("Won", "false");
     alert('Good morning!');
-
+    //openNav();
+    wordle = localStorage.getItem("wor");
+    console.log(wordle + " a fuggvenybe");
+    console.log(" Belement")
+    firstRunofTheDay = false;
 }
+    //canReset = true;
+    //location.reload();
+
+
+
+
+//localStorage.clear();
+
+
+
 
 runOncePerDay(); // run the code
-
-
-
 wordle = localStorage.getItem("wor")
+console.log(wordle + " Hiivas utan")
+
+
+
+
 
 const keys = [
     'Q',
@@ -87,19 +187,11 @@ const keys = [
     'M',
     '<<',
 ]
-const guessRows = [
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', '']
-]
+
 let currentRow = 0
 let currentTile = 0
 let isGameOver = false
+
 
 guessRows.forEach((guessRow,guessRowIndex) => {
     const rowElement = document.createElement('div')
@@ -136,7 +228,7 @@ const handleClick = (letter) => {
 }
 
 const addLetter = (letter) => {
-    if (currentTile < 5 && currentRow < 8) {
+    if (currentTile < 5 && currentRow < rowNum) {
         const tile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile)
         tile.textContent = letter
         guessRows[currentRow][currentTile] = letter
@@ -173,17 +265,33 @@ const checkRow = () => {
                     console.log('guess is ' + guess, 'wordle is ' + wordle)
                     flipTile()
                     if (wordle == guess) {
-                        showMessage('Excellent!!!')
+                        //showMessage('Excellent!!!')
                         isGameOver = true
+                        localStorage.setItem("Won", "true")
+                        document.getElementById("isWin").innerHTML = "Congratulation you won";
+                        document.getElementById("correctAnswer").innerHTML = "Answer was : " + wordle;
+                        //streakCounter();
+                        localStorage.streakcount = Number(localStorage.streakcount) + 1;
+                        document.getElementById("streak").innerHTML = "Your daily streak is : " + localStorage.streakcount;
+                        //setStreak();
+                        //streakOut = localStorage.getItem("streak");
+                        //document.getElementById("streak").innerHTML = "Your daily streak is : " + streakOut;
+                        openNav()
                         return
                     } else {
-                        if (currentRow >= 7) {
+                        if (currentRow >= rowNum-1) {
                             isGameOver = true
-                            showMessage('GAME OVER')
-                            showMessage('Correst word was ' + wordle)
+                            localStorage.setItem("Won", "true")
+                            document.getElementById("isWin").innerHTML = "Well You lose ";
+                            document.getElementById("correctAnswer").innerHTML = "Correct answer was : " + wordle;
+                            localStorage.streakcount = 0;
+                            document.getElementById("streak").innerHTML = "Your daily streak is : " + localStorage.streakcount;
+                            openNav()
+                            //showMessage('GAME OVER')
+                            //showMessage('Correst word was ' + wordle)
                             return
                         }
-                        if (currentRow < 7) {
+                        if (currentRow < rowNum - 1) {
                             currentRow++
                             currentTile = 0
                            
@@ -194,6 +302,8 @@ const checkRow = () => {
         x=0
     }
 }
+
+//CountDown Timer
 
 const showMessage = (message) => {
     const messageElement = document.createElement('p')
@@ -239,3 +349,72 @@ const flipTile = () => {
         }, 500 * index)
     })
 }
+
+const Countdown = (() => {
+
+    let nextMidnight = new Date();
+    nextMidnight.setHours(24, 0, 0, 0);
+
+    const getRemainingTime = () => {
+        let now = new Date();
+
+        let time = (nextMidnight.getTime() - now.getTime()) / 1000;
+
+        if (time < 0) {
+            location.reload();
+            nextMidnight = new Date();
+            nextMidnight.setHours(24, 0, 0, 0);
+
+
+            return getRemainingTime();
+        }
+
+        return time;
+    }
+
+    const parseTime = (time) => {
+        const hours = Math.floor(time / 3600);
+        let rest = time - (hours * 3600);
+        const minutes = Math.floor(rest / 60);
+        rest = rest - (minutes * 60);
+        const seconds = Math.floor(rest);
+        const milliseconds = (rest - seconds) * 1000;
+
+        return [hours, minutes, seconds, milliseconds];
+    };
+
+    const formatTime = (parsedTime) => {
+        return '<span class="hours">' + parsedTime[0] + '</span><span class="hSep">:</span><span class="minutes">' + ("0" + parsedTime[1]).slice(-2) + '</span><span class="mSep">:</span><span class="seconds">' + ("0" + parsedTime[2]).slice(-2) + '</span>';
+    };
+
+    const els = [];
+    let timeout;
+
+    return (el) => {
+        els.push(el);
+
+        if (!timeout) {
+
+            const refresh = () => {
+                const parsedTime = parseTime(getRemainingTime());
+                const formattedTimes = formatTime(parsedTime);
+
+                for (let i = 0, iend = els.length; i < iend; i++) {
+                    els[i].innerHTML = formattedTimes;
+                }
+
+                setTimeout(() => {
+                    refresh();
+                }, parsedTime[3]);
+            };
+            refresh();
+
+        }
+        else el.innerHTML = formatTime(parseTime(getRemainingTime()));
+    };
+
+})();
+
+Countdown(document.getElementById('countdown'));
+//handleReset();
+//Countdown(document.getElementById('countdown-two'));

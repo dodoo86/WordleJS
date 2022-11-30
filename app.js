@@ -34,7 +34,7 @@
     
     }
 
-    document.getElementById("streak").innerHTML = "Your daily streak is : " + localStorage.streakcount;
+    document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
 //document.getElementById("correctAnswer").innerHTML = "Correct answer was : " + wordle;
 
     const guessRowsEasy = [

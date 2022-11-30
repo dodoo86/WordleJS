@@ -80,16 +80,16 @@
 
     function openNav() {
         if (localStorage.getItem("Won") == "false") {
-            document.getElementById("OpenScreen").style.width = "100%";
+            document.getElementById("OpenScreen").style.height = "100%";
         }
         if (localStorage.getItem("Won") == "true") {
-            document.getElementById("CloseScreen").style.width = "100%";
+            document.getElementById("CloseScreen").style.height = "100%";
         }
     
     }
 
     function closeNav() {
-        document.getElementById("OpenScreen").style.width = "0%";
+        document.getElementById("OpenScreen").style.height = "0%";
     }
 
     openNav()
@@ -426,6 +426,11 @@ function setLastWinDates() {
         };
 
         const formatTime = (parsedTime) => {
+
+            if (parsedTime[0] < 10) {
+                return '<span class="hours">' + 0 + parsedTime[0] + '</span><span class="hSep">:</span><span class="minutes">' + ("0" + parsedTime[1]).slice(-2) + '</span><span class="mSep">:</span><span class="seconds">' + ("0" + parsedTime[2]).slice(-2) + '</span>';
+            } else
+
             return '<span class="hours">' + parsedTime[0] + '</span><span class="hSep">:</span><span class="minutes">' + ("0" + parsedTime[1]).slice(-2) + '</span><span class="mSep">:</span><span class="seconds">' + ("0" + parsedTime[2]).slice(-2) + '</span>';
         };
 

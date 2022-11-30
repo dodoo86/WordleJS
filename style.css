@@ -131,8 +131,8 @@ body {
 /* The Overlay (background) */
 .overlay {
     /* Height & width depends on how you want to reveal the overlay (see JS below) */
-    height: 100%;
-    width: 0;
+    height: 0;
+    width: 100%;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
@@ -164,6 +164,20 @@ body {
 
     /* When you mouse over the navigation links, change their color */
     .overlay a:hover, .overlay a:focus {
+        color: #f1f1f1;
+    }
+
+.overlay b {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #f1f1f1;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+    /* When you mouse over the navigation links, change their color */
+    .overlay b:hover, .overlay b:focus {
         color: #f1f1f1;
     }
 

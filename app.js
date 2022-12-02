@@ -325,10 +325,10 @@ function setLastWinDates() {
                             if (currentRow >= rowNum - 1) {
                                 isGameOver = true
                                 localStorage.setItem("Won", "true")
+                                localStorage.streakcount = 0;
                                 document.getElementById("isWin").innerHTML = "Well You Lose ";
                                 document.getElementById("correctAnswer").innerHTML = "Correct Answer Was : " + wordle;
                                 document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
-                                localStorage.streakcount = 0;
                                 window.setTimeout(openNav, 2500);
                                 return
                             }

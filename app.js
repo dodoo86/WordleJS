@@ -121,8 +121,10 @@
         return true;
     }
 
-    function setLastWinDates() {
-        const lastPlayed = new Date();
+function setLastWinDates() {
+
+    const lastPlayed = new Date();
+
         localStorage.setItem("Day", lastPlayed.getDate());
         localStorage.setItem("Month", lastPlayed.getMonth());
         localStorage.setItem("Year", lastPlayed.getFullYear());

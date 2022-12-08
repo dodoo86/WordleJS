@@ -94,24 +94,30 @@
 
     openNav()
 
-    const getWordle = () => {
+const getWordle = () => {
+        /*
         fetch('https://squirreldle.onrender.com/word')
             .then(response => response.json())
             .then(json => {
                 dayWord = json.toUpperCase()
                 localStorage.setItem("wor", dayWord)
-            
+                console.log("getWordle func run")
             })
 
             .catch(err => console.log(err))
+            */
+    localStorage.setItem("wor", "LATEX")
     }
+
+console.log(localStorage.getItem("gamePlayed"))
+console.log(localStorage.getItem("Won"))
 
 // checks if one day has passed. 
     function hasOneDayPassed() {
         // get today's date. eg: "7/37/2007"
         var date = new Date().toLocaleDateString();
         //alert(date);
-        // if there's a date in localstorage and it's equal to the above: 
+        // if there's a date in localstorage and it's equal to the above:
         // inferring a day has yet to pass since both dates are equal.
         if (localStorage.yourapp_date == date)
             return false;
@@ -121,28 +127,33 @@
         return true;
     }
 
-function setLastWinDates() {
+    function setLastWinDates() {
 
-    const lastPlayed = new Date();
+        let lastDay = new Date().getDate();
+        let lastMonth = new Date().getMonth();
+        let lastYear = new Date().getFullYear();
 
-        localStorage.setItem("Day", lastPlayed.getDate());
-        localStorage.setItem("Month", lastPlayed.getMonth());
-        localStorage.setItem("Year", lastPlayed.getFullYear());
+            localStorage.setItem("Day", lastDay);
+            localStorage.setItem("Month", lastMonth);
+            localStorage.setItem("Year", lastYear);
 
     }
 
 
     function checkLastWinDates() {
 
-        const currentDate = new Date();
+        //const currentDate = new Date();
+        let day = new Date().getDate() -1;
+        let month = new Date().getMonth();
+        let Year = new Date().getFullYear();
 
-        let day = currentDate.getDate() - 1;
-        let month = currentDate.getMonth();
+        //let day = currentDate.getDate() - 1;
+        //let month = currentDate.getMonth();
 
         if (day == 0) {
             month = month - 1;
         }
-        let Year = currentDate.getFullYear();
+        //let Year = currentDate.getFullYear();
 
         if (day == 0 && month == -1) {
             Year = Year - 1;
@@ -153,13 +164,11 @@ function setLastWinDates() {
             localStorage.streakcount = 0;
 
         } else if (Year.toString() == localStorage.getItem("Year") && day == 0 && month == -1) {
-
         } else if (month.toString() != localStorage.getItem("Month")) {
 
             localStorage.streakcount = 0;
 
         } else if (month.toString() == localStorage.getItem("Month") && day == 0) {
-
         } else if (day.toString() != localStorage.getItem("Day")) {
 
             localStorage.streakcount = 0;
@@ -180,11 +189,12 @@ function setLastWinDates() {
         if (!hasOneDayPassed()) return false;
 
         // your code below
-        getWordle()
+        getWordle();
         localStorage.setItem("Won", "false");
         wordle = localStorage.getItem("wor");
         checkLastWinDates();
         localStorage.setItem("gamePlayed", "false");
+        console.log("OnceADay func run");
         canReset = true;
 
 
@@ -198,7 +208,7 @@ function setLastWinDates() {
     if (localStorage.getItem("gamePlayed") == "false") {
         checkLastWinDates();
     }
-
+    
 
 
 

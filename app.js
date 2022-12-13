@@ -465,7 +465,7 @@ function setLastWinDates() {
     Countdown(document.getElementById('countdown'));
 
     streakCounter()
-    window.setTimeout(handleReset, 500);
+    window.setTimeout(handleReset, 800);
 
     //handleReset();
     //Countdown(document.getElementById('countdown-two'));

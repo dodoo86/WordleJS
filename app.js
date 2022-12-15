@@ -11,13 +11,24 @@ let x = 0;
 let streak = 0;
 let streakOut;
 let firstRunofTheDay = true;
+let canReset = false;
 
 wordle = localStorage.getItem("wor")
+
+function handleReset() {
+
+    if (canReset == true) {
+        location.reload();
+        canReset = false;
+    }
+
+}
+
 function streakCounter() {
     if (localStorage.streakcount) {
         
     } else {
-        localStorage.streakcount = 1;
+        localStorage.streakcount = 0;
     }
     
 }
@@ -126,20 +137,17 @@ function runOncePerDay() {
     if (!hasOneDayPassed()) return false;
 
     // your code below
-    //inicialize();
-    //closeNav();
-    //localStorage.removeItem("wor");
     getWordle()
     localStorage.setItem("Won", "false");
-    alert('Good morning!');
-    //openNav();
+    //alert('Good morning!');
     wordle = localStorage.getItem("wor");
     console.log(wordle + " a fuggvenybe");
     console.log(" Belement")
     firstRunofTheDay = false;
+    canReset = true;
+    
 }
-    //canReset = true;
-    //location.reload();
+
 
 
 
@@ -265,18 +273,14 @@ const checkRow = () => {
                     console.log('guess is ' + guess, 'wordle is ' + wordle)
                     flipTile()
                     if (wordle == guess) {
-                        //showMessage('Excellent!!!')
+                        showMessage('Excellent!!!')
                         isGameOver = true
                         localStorage.setItem("Won", "true")
                         document.getElementById("isWin").innerHTML = "Congratulation you won";
                         document.getElementById("correctAnswer").innerHTML = "Answer was : " + wordle;
-                        //streakCounter();
                         localStorage.streakcount = Number(localStorage.streakcount) + 1;
                         document.getElementById("streak").innerHTML = "Your daily streak is : " + localStorage.streakcount;
-                        //setStreak();
-                        //streakOut = localStorage.getItem("streak");
-                        //document.getElementById("streak").innerHTML = "Your daily streak is : " + streakOut;
-                        openNav()
+                        window.setTimeout(openNav, 2500);
                         return
                     } else {
                         if (currentRow >= rowNum-1) {
@@ -286,9 +290,7 @@ const checkRow = () => {
                             document.getElementById("correctAnswer").innerHTML = "Correct answer was : " + wordle;
                             localStorage.streakcount = 0;
                             document.getElementById("streak").innerHTML = "Your daily streak is : " + localStorage.streakcount;
-                            openNav()
-                            //showMessage('GAME OVER')
-                            //showMessage('Correst word was ' + wordle)
+                            window.setTimeout(openNav, 2500);
                             return
                         }
                         if (currentRow < rowNum - 1) {
@@ -416,5 +418,6 @@ const Countdown = (() => {
 })();
 
 Countdown(document.getElementById('countdown'));
+window.setTimeout(handleReset, 500);
 //handleReset();
 //Countdown(document.getElementById('countdown-two'));

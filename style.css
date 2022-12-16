@@ -23,9 +23,10 @@ body {
 .title-container {
     text-align: center;
     margin-top: auto;
-    margin-bottom: -120px;
+    margin-bottom: -80px;
     width: 510px;
     border-bottom: solid 1px #3a3a3c;
+    zoom: 120%;
     touch-action: manipulation;
 }
 
@@ -43,7 +44,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     touch-action: manipulation;
-    zoom: 145%;
+    zoom: 155%;
     margin-top: -290px;
 }
 

@@ -5,10 +5,10 @@
 
 body {
     background-color: #121213;
-    height: 150%;
+    margin-top: -20px;
+    height: 100%;
     width: 100%;
-    zoom: 55%;
-   
+    zoom: 35%;
 }
 
 .game-container {
@@ -22,7 +22,8 @@ body {
 
 .title-container {
     text-align: center;
-    margin-top: 80px;
+    margin-top: auto;
+    margin-bottom: -120px;
     width: 510px;
     border-bottom: solid 1px #3a3a3c;
     touch-action: manipulation;
@@ -31,8 +32,9 @@ body {
 .tile-container {
     margin-top: 70px;
     width: 465px;
-    margin-bottom: 30px;
+    margin-bottom: 300px;
     touch-action: manipulation;
+    zoom: 150%;
 }
 
 .key-container {
@@ -41,6 +43,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     touch-action: manipulation;
+    zoom: 145%;
+    margin-top: -290px;
 }
 
     .key-container button {

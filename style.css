@@ -5,6 +5,10 @@
 
 body {
     background-color: #121213;
+    height: 150%;
+    width: 100%;
+    zoom: 55%;
+   
 }
 
 .game-container {
@@ -18,27 +22,30 @@ body {
 
 .title-container {
     text-align: center;
+    margin-top: 80px;
     width: 510px;
     border-bottom: solid 1px #3a3a3c;
     touch-action: manipulation;
 }
 
 .tile-container {
+    margin-top: 70px;
     width: 465px;
     margin-bottom: 30px;
     touch-action: manipulation;
 }
 
 .key-container {
-    width: 985px; /*580*/
+    /*985*/
+    width: 690px; /*580*/
     display: flex;
     flex-wrap: wrap;
     touch-action: manipulation;
 }
 
     .key-container button {
-        width: 90px; /*50*/
-        height: 105px; /*65*/
+        width: 60px; /*50*/
+        height: 75px; /*65*/
         border-radius: 4px;
         border: none;
         background-color: #818384;
@@ -48,13 +55,13 @@ body {
     }
 
         .key-container button:nth-child(11) {
-            margin-left: 55px; /*30*/
+            margin-left: 40px; /*30*/
             touch-action: manipulation;
         }
 
         .key-container button:nth-child(20),
         .key-container button:nth-child(28) {
-            width: 140px; /*75*/
+            width: 95px; /*75*/
             touch-action: manipulation;
         }
 
@@ -209,7 +216,7 @@ body {
     bottom: 0;
     left: 0;
     width: 520px;
-    height: 200px;
+    height: 50px;
     padding: 5px;
     border: 1px solid black;
     display: inline-block;

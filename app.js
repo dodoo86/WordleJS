@@ -17,7 +17,7 @@
 console.log(sessionStorage.getItem("isEasy"));
 
 
-    wordle = localStorage.getItem("wor")
+wordle = localStorage.getItem("wor").toUpperCase();
 
 
     function handleReset() {
@@ -120,8 +120,13 @@ if (sessionStorage.getItem("isEasy") == 1) {
         document.getElementById("OpenScreen").style.height = "0%";
 }
 
+async function fetchMoviesJSON() {
+    const response = await fetch('https://squirreldle.onrender.com/word');
+    const movies = await response.json();
+    return movies;
+}
 
-
+/*
 
     const getWordle = () => {
              fetch('https://squirreldle.onrender.com/word')
@@ -134,7 +139,7 @@ if (sessionStorage.getItem("isEasy") == 1) {
         
 
             .catch(err => console.log(err))
-    }
+    } */
 /*
     async caller() {
         const json = await this.getWordle();  // command waits until completion
@@ -215,9 +220,18 @@ function setLastWinDates() {
         if (!hasOneDayPassed()) return false;
 
         // your code below
-        getWordle()
+        //getWordle()
+
+        fetchMoviesJSON().then(movies => {
+            movies; // fetched movies
+            localStorage.setItem("wor", movies)
+        });
+
+        console.log("Word  ", localStorage.getItem("wor"));
+
         localStorage.setItem("Won", "false");
-        wordle = localStorage.getItem("wor");
+        wordle = localStorage.getItem("wor").toUpperCase();
+        console.log("WordUPSCALE  ", wordle);
         checkLastWinDates();
         localStorage.setItem("gamePlayed", "false");
         canReset = true;
@@ -246,7 +260,7 @@ function setLastWinDates() {
     //localStorage.clear();
 
     runOncePerDay(); // run the code
-    wordle = localStorage.getItem("wor")
+    wordle = localStorage.getItem("wor").toUpperCase();
 
     if (localStorage.getItem("gamePlayed") == "false") {
         checkLastWinDates();
@@ -372,7 +386,7 @@ function setLastWinDates() {
                             document.getElementById("streakConn").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
                             localStorage.setItem("gamePlayed", "true");
                             sessionStorage.setItem("isEasy", "4");
-                            localStorage.setItem("lastWordle", wordle);
+                            localStorage.setItem("lastWordle", wordle.toUpperCase());
                             setLastWinDates();
                             window.setTimeout(openNav, 2500);
                             return
@@ -385,7 +399,7 @@ function setLastWinDates() {
                                 document.getElementById("correctAnswer").innerHTML = "Correct Answer Was : " + wordle;
                                 document.getElementById("streakConn").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
                                 sessionStorage.setItem("isEasy", "4");
-                                localStorage.setItem("lastWordle", wordle);
+                                localStorage.setItem("lastWordle", wordle.toUpperCase());
                                 window.setTimeout(openNav, 2500);
                                 return
                             }

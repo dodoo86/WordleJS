@@ -12,6 +12,10 @@
     let streakOut;
     let canReset = false;
 
+    //localStorage.setItem("isEasy", "2");
+
+console.log(sessionStorage.getItem("isEasy"));
+
 
     wordle = localStorage.getItem("wor")
 
@@ -54,28 +58,49 @@
         ['', '', '', '', ''],
         ['', '', '', '', ''],
         ['', '', '', '', '']
-    ]
+]
 
-    let guessRows = guessRowsEasy;
+let guessRows = guessRowsEasy;
 
+if (setEasy === 0) {
+    
+}
+
+
+if (sessionStorage.getItem("isEasy") == 1) {
+    guessRows = guessRowsEasy;
+    console.log("esay egy");
+    rowNum = 8;
+    closeNav();
+} else if (sessionStorage.getItem("isEasy") == 2) {
+    guessRows = guessRowsHard;
+    console.log("esay ketto");
+    rowNum = 5;
+    closeNav();
+} else {
+    openNav();
+    console.log("esay nulla");
+    guessRows = guessRowsEasy;
+}
+    
+//closeNav();
 
     function setEasy() {
 
-        guessRows = guessRowsEasy;
-        rowNum = 8;
-        closeNav();
+        sessionStorage.setItem("isEasy", "1");
+
+        location.reload();
 
     };
 
     function setHard() {
 
-        guessRows = guessRowsHard;
-        rowNum = 5;
-        closeNav();
+        sessionStorage.setItem("isEasy", "2");
 
+        location.reload();
     };
 
-    setEasy
+   // setEasy
 
 
     function openNav() {
@@ -90,13 +115,14 @@
 
     function closeNav() {
         document.getElementById("OpenScreen").style.height = "0%";
-    }
+}
 
-    openNav()
+
+
 
     const getWordle = () => {
-        fetch('https://squirreldle.onrender.com/word')
-            .then(response => response.json())
+             fetch('https://squirreldle.onrender.com/word')
+           .then(response => response.json())
             .then(json => {
                 dayWord = json.toUpperCase()
                 localStorage.setItem("wor", dayWord)
@@ -105,7 +131,12 @@
 
             .catch(err => console.log(err))
     }
-
+/*
+    async caller() {
+        const json = await this.getWordle();  // command waits until completion
+        console.log(json.hello);            // hello is now available
+    }
+    */
 // checks if one day has passed. 
     function hasOneDayPassed() {
         // get today's date. eg: "7/37/2007"
@@ -318,6 +349,7 @@ function setLastWinDates() {
                             document.getElementById("correctAnswer").innerHTML = "Answer Was : " + wordle;
                             document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
                             localStorage.setItem("gamePlayed", "true");
+                            sessionStorage.setItem("isEasy", "4");
                             setLastWinDates();
                             window.setTimeout(openNav, 2500);
                             return
@@ -329,6 +361,7 @@ function setLastWinDates() {
                                 document.getElementById("isWin").innerHTML = "Well You Lose ";
                                 document.getElementById("correctAnswer").innerHTML = "Correct Answer Was : " + wordle;
                                 document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+                                sessionStorage.setItem("isEasy", "4");
                                 window.setTimeout(openNav, 2500);
                                 return
                             }

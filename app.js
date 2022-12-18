@@ -36,10 +36,11 @@ console.log(sessionStorage.getItem("isEasy"));
             localStorage.streakcount = 0;
         }
     
-    }
+}
 
-    document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
-//document.getElementById("correctAnswer").innerHTML = "Correct answer was : " + wordle;
+document.getElementById("streakConn").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+document.getElementById("correctAnswer").innerHTML = "Last Answer Was : " + wordle;
+
 
     const guessRowsEasy = [
         ['', '', '', '', ''],
@@ -126,8 +127,11 @@ if (sessionStorage.getItem("isEasy") == 1) {
             .then(json => {
                 dayWord = json.toUpperCase()
                 localStorage.setItem("wor", dayWord)
-            
+                while (localStorage.getItem("lastWordle") == localStorage.getItem("wor") || dayWord == null || dayWord == undefined) {
+                    getWordle();
+                }
             })
+        
 
             .catch(err => console.log(err))
     }
@@ -347,9 +351,10 @@ function setLastWinDates() {
                             localStorage.streakcount = Number(localStorage.streakcount) + 1;
                             document.getElementById("isWin").innerHTML = "Congratulation You Won !";
                             document.getElementById("correctAnswer").innerHTML = "Answer Was : " + wordle;
-                            document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+                            document.getElementById("streakConn").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
                             localStorage.setItem("gamePlayed", "true");
                             sessionStorage.setItem("isEasy", "4");
+                            localStorage.setItem("lastWordle", wordle);
                             setLastWinDates();
                             window.setTimeout(openNav, 2500);
                             return
@@ -360,8 +365,9 @@ function setLastWinDates() {
                                 localStorage.streakcount = 0;
                                 document.getElementById("isWin").innerHTML = "Well You Lose ";
                                 document.getElementById("correctAnswer").innerHTML = "Correct Answer Was : " + wordle;
-                                document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+                                document.getElementById("streakConn").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
                                 sessionStorage.setItem("isEasy", "4");
+                                localStorage.setItem("lastWordle", wordle);
                                 window.setTimeout(openNav, 2500);
                                 return
                             }
@@ -498,7 +504,7 @@ function setLastWinDates() {
     Countdown(document.getElementById('countdown'));
 
     streakCounter()
-    window.setTimeout(handleReset, 1800);
+    window.setTimeout(handleReset, 1400);
 
     //handleReset();
     //Countdown(document.getElementById('countdown-two'));

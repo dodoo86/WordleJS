@@ -40,6 +40,8 @@ console.log(sessionStorage.getItem("isEasy"));
 
 document.getElementById("streakConn").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
 document.getElementById("correctAnswer").innerHTML = "Last Answer Was : " + wordle;
+document.getElementById("MainStreakCon").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+document.getElementById("MainAnswer").innerHTML = "Last Answer Was : " + localStorage.getItem("lastWordle");
 
 
     const guessRowsEasy = [
@@ -127,9 +129,7 @@ if (sessionStorage.getItem("isEasy") == 1) {
             .then(json => {
                 dayWord = json.toUpperCase()
                 localStorage.setItem("wor", dayWord)
-                if (localStorage.getItem("lastWordle") == localStorage.getItem("wor") || dayWord == null || dayWord == undefined) {
-                    getWordle();
-                }
+                
             })
         
 
@@ -221,8 +221,26 @@ function setLastWinDates() {
         checkLastWinDates();
         localStorage.setItem("gamePlayed", "false");
         canReset = true;
+        /*
+        if (localStorage.getItem("lastWordle") != localStorage.getItem("wor")) {
+            canReset = true;
+        } else {
+            doOnce();
+        }
+        */
 
 
+}
+
+    function doOnce() {
+        getWordle()
+        localStorage.setItem("Won", "false");
+        wordle = localStorage.getItem("wor");
+        checkLastWinDates();
+        localStorage.setItem("gamePlayed", "false");
+        if (localStorage.getItem("lastWordle") != localStorage.getItem("wor")) {
+            canReset = true;
+        }
     }
 
     //localStorage.clear();

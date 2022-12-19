@@ -204,17 +204,17 @@ function setLastWinDates() {
         fetchWordJSON().then(word => {
             word;
             localStorage.setItem("wor", word)
+            console.log("Word  ", localStorage.getItem("wor"));
+
+            localStorage.setItem("Won", "false");
+            wordle = localStorage.getItem("wor").toUpperCase();
+            console.log("WordUPSCALE  ", wordle);
+            checkLastWinDates();
+            localStorage.setItem("gamePlayed", "false");
+            location.reload();
         });
 
-        console.log("Word  ", localStorage.getItem("wor"));
-
-        localStorage.setItem("Won", "false");
-        wordle = localStorage.getItem("wor").toUpperCase();
-        console.log("WordUPSCALE  ", wordle);
-        checkLastWinDates();
-        localStorage.setItem("gamePlayed", "false");
-        canReset = true;
-        //location.reload();
+        
 }
 
   

@@ -120,32 +120,12 @@ if (sessionStorage.getItem("isEasy") == 1) {
         document.getElementById("OpenScreen").style.height = "0%";
 }
 
-async function fetchMoviesJSON() {
-    const response = await fetch('https://squirreldle.onrender.com/word');
-    const movies = await response.json();
-    return movies;
-}
-
-/*
-
-    const getWordle = () => {
-             fetch('https://squirreldle.onrender.com/word')
-           .then(response => response.json())
-            .then(json => {
-                dayWord = json.toUpperCase()
-                localStorage.setItem("wor", dayWord)
-                
-            })
-        
-
-            .catch(err => console.log(err))
-    } */
-/*
-    async caller() {
-        const json = await this.getWordle();  // command waits until completion
-        console.log(json.hello);            // hello is now available
+    async function fetchWordJSON() {
+        const response = await fetch('https://squirreldle.onrender.com/word');
+        const word = await response.json();
+        return word;
     }
-    */
+
 // checks if one day has passed. 
     function hasOneDayPassed() {
         // get today's date. eg: "7/37/2007"
@@ -219,12 +199,11 @@ function setLastWinDates() {
     function runOncePerDay() {
         if (!hasOneDayPassed()) return false;
 
-        // your code below
-        //getWordle()
+     
 
-        fetchMoviesJSON().then(movies => {
-            movies; // fetched movies
-            localStorage.setItem("wor", movies)
+        fetchWordJSON().then(word => {
+            word;
+            localStorage.setItem("wor", word)
         });
 
         console.log("Word  ", localStorage.getItem("wor"));
@@ -235,28 +214,10 @@ function setLastWinDates() {
         checkLastWinDates();
         localStorage.setItem("gamePlayed", "false");
         canReset = true;
-        /*
-        if (localStorage.getItem("lastWordle") != localStorage.getItem("wor")) {
-            canReset = true;
-        } else {
-            doOnce();
-        }
-        */
-
-
+        //location.reload();
 }
 
-    function doOnce() {
-        getWordle()
-        localStorage.setItem("Won", "false");
-        wordle = localStorage.getItem("wor");
-        checkLastWinDates();
-        localStorage.setItem("gamePlayed", "false");
-        if (localStorage.getItem("lastWordle") != localStorage.getItem("wor")) {
-            canReset = true;
-        }
-    }
-
+  
     //localStorage.clear();
 
     runOncePerDay(); // run the code

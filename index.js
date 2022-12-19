@@ -14,10 +14,10 @@ app.get('/word', (req, res) => {
         url: 'https://random-words5.p.rapidapi.com/getMultipleRandom',
         params: { count: '1', wordLength: '5' },
         headers: {
-            'X-RapidAPI-Host': 'random-words5.p.rapidapi.com',
-            'X-RapidAPI-Key': process.env.RAPID_API_KEY
-           // 'X-RapidAPI-Key': '99f96ab0cfmsh1dea2f53f05230ep161d3bjsn4ac7a2c22dbc',
-           // 'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
+           // 'X-RapidAPI-Host': 'random-words5.p.rapidapi.com',
+            //'X-RapidAPI-Key': process.env.RAPID_API_KEY
+            'X-RapidAPI-Key': '99f96ab0cfmsh1dea2f53f05230ep161d3bjsn4ac7a2c22dbc',
+            'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
         }
     }
 

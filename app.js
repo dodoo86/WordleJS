@@ -127,7 +127,7 @@ if (sessionStorage.getItem("isEasy") == 1) {
             .then(json => {
                 dayWord = json.toUpperCase()
                 localStorage.setItem("wor", dayWord)
-                while (localStorage.getItem("lastWordle") == localStorage.getItem("wor") || dayWord == null || dayWord == undefined) {
+                if (localStorage.getItem("lastWordle") == localStorage.getItem("wor") || dayWord == null || dayWord == undefined) {
                     getWordle();
                 }
             })
@@ -504,7 +504,7 @@ function setLastWinDates() {
     Countdown(document.getElementById('countdown'));
 
     streakCounter()
-    window.setTimeout(handleReset, 1400);
+    window.setTimeout(handleReset, 2000);
 
     //handleReset();
     //Countdown(document.getElementById('countdown-two'));

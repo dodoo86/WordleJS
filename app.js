@@ -16,9 +16,9 @@
 
 console.log(sessionStorage.getItem("isEasy"));
 
-
-wordle = localStorage.getItem("wor").toUpperCase();
-
+if (localStorage.getItem("wor") != null) {
+    wordle = localStorage.getItem("wor").toUpperCase();
+}
 
     function handleReset() {
 
@@ -221,7 +221,13 @@ function setLastWinDates() {
     //localStorage.clear();
 
     runOncePerDay(); // run the code
-    wordle = localStorage.getItem("wor").toUpperCase();
+
+    if (localStorage.getItem("wor") != null) {
+        wordle = localStorage.getItem("wor").toUpperCase();
+    } else {
+        wordle = localStorage.getItem("wor");
+    }
+   
 
     if (localStorage.getItem("gamePlayed") == "false") {
         checkLastWinDates();

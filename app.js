@@ -10,10 +10,11 @@ let dayWord
 let x = 0;
 let streak = 0;
 let streakOut;
-let firstRunofTheDay = true;
 let canReset = false;
 
+
 wordle = localStorage.getItem("wor")
+
 
 function handleReset() {
 
@@ -32,7 +33,7 @@ function streakCounter() {
     }
     
 }
-streakCounter()
+
 document.getElementById("streak").innerHTML = "Your daily streak is : " + localStorage.streakcount;
 //document.getElementById("correctAnswer").innerHTML = "Correct answer was : " + wordle;
 
@@ -91,17 +92,6 @@ function closeNav() {
     document.getElementById("OpenScreen").style.width = "0%";
 }
 
-function inicializeMenu() {
-
-    if (firstRunofTheDay == true) {
-        closeNav();
-        openNav();
-    } else {
-        //closeNav();
-        openNav();
-    }
-
-}
 openNav()
 
 const getWordle = () => {
@@ -131,6 +121,15 @@ function hasOneDayPassed() {
     return true;
 }
 
+function handleStreak() {
+    if (localStorage.getItem("gamePlayed") == "false") {
+        localStorage.streakcount = 0;
+        console.log(" Belement")
+        
+    }
+
+}
+
 
 // some function which should run once a day
 function runOncePerDay() {
@@ -142,9 +141,11 @@ function runOncePerDay() {
     //alert('Good morning!');
     wordle = localStorage.getItem("wor");
     console.log(wordle + " a fuggvenybe");
-    console.log(" Belement")
-    firstRunofTheDay = false;
+    
+    handleStreak();
+    localStorage.setItem("gamePlayed", "false");
     canReset = true;
+    
     
 }
 
@@ -159,7 +160,7 @@ function runOncePerDay() {
 
 runOncePerDay(); // run the code
 wordle = localStorage.getItem("wor")
-console.log(wordle + " Hiivas utan")
+console.log(localStorage.getItem("gamePlayed") + " Hiivas utan")
 
 
 
@@ -276,20 +277,21 @@ const checkRow = () => {
                         showMessage('Excellent!!!')
                         isGameOver = true
                         localStorage.setItem("Won", "true")
-                        document.getElementById("isWin").innerHTML = "Congratulation you won";
-                        document.getElementById("correctAnswer").innerHTML = "Answer was : " + wordle;
                         localStorage.streakcount = Number(localStorage.streakcount) + 1;
-                        document.getElementById("streak").innerHTML = "Your daily streak is : " + localStorage.streakcount;
+                        document.getElementById("isWin").innerHTML = "Congratulation You Won !";
+                        document.getElementById("correctAnswer").innerHTML = "Answer Was : " + wordle;
+                        document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+                        localStorage.setItem("gamePlayed", "true");
                         window.setTimeout(openNav, 2500);
                         return
                     } else {
                         if (currentRow >= rowNum-1) {
                             isGameOver = true
                             localStorage.setItem("Won", "true")
-                            document.getElementById("isWin").innerHTML = "Well You lose ";
-                            document.getElementById("correctAnswer").innerHTML = "Correct answer was : " + wordle;
+                            document.getElementById("isWin").innerHTML = "Well You Lose ";
+                            document.getElementById("correctAnswer").innerHTML = "Correct Answer Was : " + wordle;
+                            document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
                             localStorage.streakcount = 0;
-                            document.getElementById("streak").innerHTML = "Your daily streak is : " + localStorage.streakcount;
                             window.setTimeout(openNav, 2500);
                             return
                         }
@@ -361,16 +363,17 @@ const Countdown = (() => {
         let now = new Date();
 
         let time = (nextMidnight.getTime() - now.getTime()) / 1000;
-
+        
         if (time < 0) {
             location.reload();
             nextMidnight = new Date();
             nextMidnight.setHours(24, 0, 0, 0);
 
-
+            
+            
             return getRemainingTime();
         }
-
+        
         return time;
     }
 
@@ -418,6 +421,9 @@ const Countdown = (() => {
 })();
 
 Countdown(document.getElementById('countdown'));
+
+streakCounter()
 window.setTimeout(handleReset, 500);
+
 //handleReset();
 //Countdown(document.getElementById('countdown-two'));

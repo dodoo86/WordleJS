@@ -2,5 +2,5 @@
 shoutout to https://github.com/kubowania
 
 Play it Here
-http://squirreldle.atw.hu/
+https://www.ragingsquirrel.hu/Wordle/index.html
 

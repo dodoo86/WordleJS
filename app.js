@@ -12,9 +12,13 @@
     let streakOut;
     let canReset = false;
 
+    //localStorage.setItem("isEasy", "2");
 
-    wordle = localStorage.getItem("wor")
+console.log(sessionStorage.getItem("isEasy"));
 
+if (localStorage.getItem("wor") != null) {
+    wordle = localStorage.getItem("wor").toUpperCase();
+}
 
     function handleReset() {
 
@@ -32,10 +36,13 @@
             localStorage.streakcount = 0;
         }
     
-    }
+}
 
-    document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
-//document.getElementById("correctAnswer").innerHTML = "Correct answer was : " + wordle;
+document.getElementById("streakConn").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+document.getElementById("correctAnswer").innerHTML = "Last Answer Was : " + wordle;
+document.getElementById("MainStreakCon").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+document.getElementById("MainAnswer").innerHTML = "Last Answer Was : " + localStorage.getItem("lastWordle");
+
 
     const guessRowsEasy = [
         ['', '', '', '', ''],
@@ -54,28 +61,49 @@
         ['', '', '', '', ''],
         ['', '', '', '', ''],
         ['', '', '', '', '']
-    ]
+]
 
-    let guessRows = guessRowsEasy;
+let guessRows = guessRowsEasy;
 
+if (setEasy === 0) {
+    
+}
+
+
+if (sessionStorage.getItem("isEasy") == 1) {
+    guessRows = guessRowsEasy;
+    console.log("esay egy");
+    rowNum = 8;
+    closeNav();
+} else if (sessionStorage.getItem("isEasy") == 2) {
+    guessRows = guessRowsHard;
+    console.log("esay ketto");
+    rowNum = 5;
+    closeNav();
+} else {
+    openNav();
+    console.log("esay nulla");
+    guessRows = guessRowsEasy;
+}
+    
+//closeNav();
 
     function setEasy() {
 
-        guessRows = guessRowsEasy;
-        rowNum = 8;
-        closeNav();
+        sessionStorage.setItem("isEasy", "1");
+
+        location.reload();
 
     };
 
     function setHard() {
 
-        guessRows = guessRowsHard;
-        rowNum = 5;
-        closeNav();
+        sessionStorage.setItem("isEasy", "2");
 
+        location.reload();
     };
 
-    setEasy
+   // setEasy
 
 
     function openNav() {
@@ -90,20 +118,12 @@
 
     function closeNav() {
         document.getElementById("OpenScreen").style.height = "0%";
-    }
+}
 
-    openNav()
-
-    const getWordle = () => {
-        fetch('https://squirreldle.onrender.com/word')
-            .then(response => response.json())
-            .then(json => {
-                dayWord = json.toUpperCase()
-                localStorage.setItem("wor", dayWord)
-            
-            })
-
-            .catch(err => console.log(err))
+    async function fetchWordJSON() {
+        const response = await fetch('https://squirreldle.onrender.com/word');
+        const word = await response.json();
+        return word;
     }
 
 // checks if one day has passed. 
@@ -179,21 +199,35 @@ function setLastWinDates() {
     function runOncePerDay() {
         if (!hasOneDayPassed()) return false;
 
-        // your code below
-        getWordle()
-        localStorage.setItem("Won", "false");
-        wordle = localStorage.getItem("wor");
-        checkLastWinDates();
-        localStorage.setItem("gamePlayed", "false");
-        canReset = true;
+     
 
+        fetchWordJSON().then(word => {
+            word;
+            localStorage.setItem("wor", word)
+            console.log("Word  ", localStorage.getItem("wor"));
 
-    }
+            localStorage.setItem("Won", "false");
+            wordle = localStorage.getItem("wor").toUpperCase();
+            console.log("WordUPSCALE  ", wordle);
+            checkLastWinDates();
+            localStorage.setItem("gamePlayed", "false");
+            location.reload();
+        });
 
+        
+}
+
+  
     //localStorage.clear();
 
     runOncePerDay(); // run the code
-    wordle = localStorage.getItem("wor")
+
+    if (localStorage.getItem("wor") != null) {
+        wordle = localStorage.getItem("wor").toUpperCase();
+    } else {
+        wordle = localStorage.getItem("wor");
+    }
+   
 
     if (localStorage.getItem("gamePlayed") == "false") {
         checkLastWinDates();
@@ -316,8 +350,10 @@ function setLastWinDates() {
                             localStorage.streakcount = Number(localStorage.streakcount) + 1;
                             document.getElementById("isWin").innerHTML = "Congratulation You Won !";
                             document.getElementById("correctAnswer").innerHTML = "Answer Was : " + wordle;
-                            document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+                            document.getElementById("streakConn").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
                             localStorage.setItem("gamePlayed", "true");
+                            sessionStorage.setItem("isEasy", "4");
+                            localStorage.setItem("lastWordle", wordle.toUpperCase());
                             setLastWinDates();
                             window.setTimeout(openNav, 2500);
                             return
@@ -328,7 +364,9 @@ function setLastWinDates() {
                                 localStorage.streakcount = 0;
                                 document.getElementById("isWin").innerHTML = "Well You Lose ";
                                 document.getElementById("correctAnswer").innerHTML = "Correct Answer Was : " + wordle;
-                                document.getElementById("streak").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+                                document.getElementById("streakConn").innerHTML = "Your Daily Streak Is : " + localStorage.streakcount;
+                                sessionStorage.setItem("isEasy", "4");
+                                localStorage.setItem("lastWordle", wordle.toUpperCase());
                                 window.setTimeout(openNav, 2500);
                                 return
                             }
@@ -465,7 +503,7 @@ function setLastWinDates() {
     Countdown(document.getElementById('countdown'));
 
     streakCounter()
-    window.setTimeout(handleReset, 800);
+    window.setTimeout(handleReset, 2000);
 
     //handleReset();
     //Countdown(document.getElementById('countdown-two'));

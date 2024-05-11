@@ -12,7 +12,7 @@ app.get('/word', (req, res) => {
     const options = {
         method: 'GET',
         url: 'https://random-words5.p.rapidapi.com/getRandom',
-        params: { wordLength: '5', excludes: '-' , excludes: ':' , excludes: "'" },
+        params: { wordLength: '5', minLength: '5', maxLength: '5', excludes: '-' , excludes: ':' , excludes: "'" },
         headers: {
             //'X-RapidAPI-Host': 'random-words5.p.rapidapi.com',
             //'X-RapidAPI-Key': process.env.RAPID_API_KEY
